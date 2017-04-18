@@ -6,6 +6,7 @@ class FrequencyMap:
     """A structure designed for mapping hashable types to other hashable types,
     to be used for implementing n-grams, Markov chains, and other similiar,
     frequency based patterns."""
+
     def __init__(self):
         self.map = dict()
 
@@ -17,6 +18,15 @@ class FrequencyMap:
         except KeyError:
             self.map.update({key: Counter()})
             self.map[key].update([value])
+
+    def subtract(self, key, value):
+        """Decrement the count of the key-value pair if it exists.
+        Does not allow negative values."""
+        try:
+            if self.map[key][value] > 0:
+                self.map[key].subtract([value])
+        except KeyError:
+            pass
 
     def common_from(self, key):
         """Returns the most common answer for a given key.
