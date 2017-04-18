@@ -2,7 +2,7 @@ from collections import Counter
 from random import randrange
 
 
-class NGramMap:
+class FrequencyMap:
     def __init__(self):
         self.map = dict()
 
