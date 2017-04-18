@@ -1,12 +1,17 @@
-from collections import Counter
-from random import randrange
+from collections import Counter     # Used for the inner map
+from random import randrange        # Used for random probalistic retrieval
 
 
 class FrequencyMap:
+    """A structure designed for mapping hashable types to other hashable types,
+    to be used for implementing n-grams, Markov chains, and other similiar,
+    frequency based patterns."""
     def __init__(self):
         self.map = dict()
 
     def add(self, key, value):
+        """Increment the count of the key-value pair,
+        inserting a new pair if it does not exist"""
         try:
             self.map[key].update([value])
         except KeyError:
@@ -15,17 +20,20 @@ class FrequencyMap:
 
     def common_from(self, key):
         """Returns the most common answer for a given key.
-        Raises KeyError if the pattern does not exist."""
+        Raises KeyError if the key does not exist."""
         return self.map[key].most_common(1)[0][0]
 
     def random_from(self, key):
         """Randomly returns a value of the given key based on the probability
-        that the value follows the key"""
+        that the value follows the key. Raises KeyError if the key does not
+        exist."""
         rand = randrange(sum(self.map[key].values()))
-        for inner_key in self.map[key]:
-            rand -= self.map[key][inner_key]
+        # Decrement by each count in the inner Counter until the random number
+        # is less than zero, then return that inner key
+        for value in self.map[key]:
+            rand -= self.map[key][value]
             if rand < 0:
-                return inner_key
+                return value
 
     def __str__(self):
         string = ''
