@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'freqmap',
   packages = ['freqmap'], # this must be the same as the name above
-  version = 'v0.3',
+  version = '0.3',
   description = 'A 2 level dictionary designed for mapping the the frequency of connections between tokens.',
   author = 'Christopher Nugent',
   author_email = 'awedeven+pypi@gmail.com',
