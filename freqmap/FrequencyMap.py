@@ -19,6 +19,18 @@ class FrequencyMap:
             self.map.update({key: Counter()})
             self.map[key].update([value])
 
+    def feed(self, feed):
+        """Feed in some iterable, in which each pair will be added to the
+        FrequencyMap"""
+        for index in range(1, len(feed)):
+            self.add(feed[index - 1], feed[index])
+
+    def feed_keys(self, feed, value):
+        """Feed some iterable key, in which each sub-iterable, truncating from
+        the beginning, will point to the value"""
+        for index in range(len(feed)):
+            self.add(feed[index:], value)
+
     def subtract(self, key, value):
         """Decrement the count of the key-value pair if it exists.
         Does not allow negative values."""
@@ -27,6 +39,7 @@ class FrequencyMap:
                 self.map[key].subtract([value])
         except KeyError:
             pass
+
 
     def common_from(self, key):
         """Returns the most common answer for a given key.
