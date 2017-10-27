@@ -1,2 +1,2 @@
 # FrequencyMap
-Installable on pip via pip `install freqmap`
+Installable on pip via `pip install freqmap`
